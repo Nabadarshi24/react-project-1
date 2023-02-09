@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #cb459c;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.custom-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  overflow-x: auto;
 }
 
-.App-link {
-  color: #61dafb;
+.cardlist-add-section {
+  max-width: 290px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.MuiButton-root.cardlist-add-btn {
+  width: 100%;
+  background-color: #a2639f;
+  text-transform: none;
+  justify-content: left;
+}
+
+.MuiButton-root.cardlist-add-btn:hover {
+  background-color: #8f518c;
+}
+
+.list-add-controls {
+  background-color: aliceblue;
+  width: 100%;
+  padding: 5px;
+}
+
+.MuiOutlinedInput-input#outlined-basic {
+  height: 0.475em;
+  width: 100%;
+}
+
+.add-close-btn {
+  margin-top: 5px;
+}
+
+.add-close-btn Button {
+  text-transform: none;
+}
+
+/* Cardlist design starts here */
+
+.card-list-container {
+  display: flex;
+  background-color: #ebecf0;
+  border-radius: 4px;
+}
+
+.card {
+  width: 290px;
+  padding: 5px;
+}
+
+.MuiSvgIcon-root.menu-icon {
+  float: right;
+}
+
+.title-edit-field .MuiOutlinedInput-input {
+  height: 0.475em;
+  padding: 10.5px 16px;
+}
+
+.MuiButton-root.bg-none {
+  width: 100%;
+  background-color: transparent;
+  color: black;
+  text-transform: none;
+  box-shadow: unset;
+  justify-content: left;
+  padding: 3px 10px;
+}
+
+.MuiButton-root.bg-none:hover {
+  background-color: #dadbe2;
 }
