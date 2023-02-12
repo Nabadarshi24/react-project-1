@@ -25,4 +25,4 @@ function CardlistAdd() {
   )
 }
 
-export default CardlistAdd
+export default CardlistAdd;

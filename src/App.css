@@ -15,6 +15,8 @@ body {
 
 .cardlist-add-section {
   max-width: 290px;
+  height: 100%;
+  margin-left: 10px;
 }
 
 .MuiButton-root.cardlist-add-btn {
@@ -51,13 +53,14 @@ body {
 
 .card-list-container {
   display: flex;
-  background-color: #ebecf0;
   border-radius: 4px;
 }
 
-.card {
+.card-list {
   width: 290px;
   padding: 5px;
+  background-color: #ebecf0;
+  margin-left: 10px;
 }
 
 .MuiSvgIcon-root.menu-icon {
@@ -82,3 +85,49 @@ body {
 .MuiButton-root.bg-none:hover {
   background-color: #dadbe2;
 }
+
+.cardlist-footer {
+  margin-top: 10px;
+}
+
+/* ends-here */
+
+/* card-design starts here */
+
+.card {
+  background-color: #fff;
+  font-size: 13px;
+}
+
+.card-footer {
+  display: flex;
+  padding: unset;
+  border-top: unset;
+}
+
+.MuiSvgIcon-root.font-size {
+  font-size: 18px;
+}
+
+/* ends here */
+
+/* dialogue design starts here */
+
+.card-details {
+  background-color: #fff;
+}
+
+.card-details-header {
+  display: flex;
+}
+
+.window-title h2 {
+  font-size: 22px;
+  margin: 0px 0 0 15px;
+}
+
+.MuiSvgIcon-root.dialogue-icon-size {
+  font-size: 20px;
+}
+
+/* ends here */
