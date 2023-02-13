@@ -8,6 +8,12 @@ body {
   background-color: #cb459c;
 }
 
+.clearfix {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 .custom-container {
   display: flex;
   overflow-x: auto;
@@ -115,9 +121,10 @@ body {
 
 .card-details {
   background-color: #fff;
+  width: 100%;
 }
 
-.card-details-header {
+.dialogue-title {
   display: flex;
 }
 
@@ -129,5 +136,132 @@ body {
 .MuiSvgIcon-root.dialogue-icon-size {
   font-size: 20px;
 }
+
+.window-header-inline-content {
+  margin-left: 38px;
+}
+
+.window-header-inline-content a {
+  color: #5e6c84;
+}
+
+  /* dialogue main part design starts here */
+
+  .dialogue-main-col {
+    width: 75%;
+    float: left;
+  }
+
+  .label-date-container {
+    margin: 20px 0 0 36px;
+  }
+
+  .dialogue-main-col h3 {
+    font-size: 13px;
+    color: #5e6c84;
+  }
+
+  .MuiButton-root.label-btn {
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 25px;
+    letter-spacing: unset;
+    min-width: 30px;
+    padding: 0;
+  }
+
+  .date-container-btn {
+    background-color: #e7e9ed;
+    display: inline-block;
+    padding: 4px 13px;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .date-container-btn:hover {
+    background-color: #d8dbe0;
+  }
+
+  .margin-right {
+    margin-right: 10px;
+  }
+
+  .desc-title {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .desc-title h3 {
+    font-size: 16px;
+    margin: 0 0 0 14px;
+  }
+
+  .MuiButton-root.edit-desc {
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    min-width: 30px;
+    padding: 4px 7px;
+    margin-left: 10px;
+    color: #5e6c84;
+    text-transform: none;
+    border: unset;
+    background-color: #e7e9ed;
+  }
+
+  .MuiButton-root.edit-desc:hover {
+    border: unset;
+    background-color: #d8dbe0;
+  }
+
+  .desc-field {
+    margin: 15px 0 0 36px;
+  }
+
+  .hidden-desc-btn {
+    margin-top: 10px;
+  }
+
+  /* ends here */
+
+  /* dialogue sidebar design starts here */
+
+  .dialogue-sidebar {
+    width: 25%;
+    float: right;
+    padding: 22px 10px 0 18px;
+  }
+
+  .dialogue-sidebar h2 {
+    font-size: 12px;
+    color: #5e6c84;
+  }
+
+  .sidebar-lists a {
+    display: block;
+    text-decoration: none;
+    color: #5e6c84;
+    background-color: #e7e9ed;
+    margin-bottom: 6px;
+    padding: 4px 7px;
+    border-radius: 3px;
+  }
+
+  .sidebar-lists a:hover {
+    background-color: #d8dbe0;
+  }
+
+  .sidebar-lists a span {
+    font-size: 15px;
+  }
+
+  .MuiSvgIcon-root.icon-size {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+
+  /* ends here */
 
 /* ends here */
