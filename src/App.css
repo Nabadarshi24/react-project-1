@@ -8,11 +8,11 @@ body {
   background-color: #cb459c;
 }
 
-.clearfix {
+/* .clearfix {
   content: "";
   clear: both;
   display: table;
-}
+} */
 
 .custom-container {
   display: flex;
@@ -121,7 +121,6 @@ body {
 
 .card-details {
   background-color: #fff;
-  width: 100%;
 }
 
 .dialogue-title {
@@ -223,6 +222,115 @@ body {
   .hidden-desc-btn {
     margin-top: 10px;
   }
+
+  .checklist {
+    margin-top: 20px;
+  }
+
+  .checklist-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .checklist-title h3 {
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 462px 0 0;
+  }
+
+  .checklist-title-edit {
+    margin-left: 36px;
+  }
+
+  .checklist-add-container {
+    margin-left: 2px;
+  }
+
+  .label-details {
+    text-align: center;
+  }
+
+  .MuiDialogContent-root.edit-dialog {
+    padding: 0 24px;
+  }
+
+  .label-body {
+    padding: 15px 0 24px 0;
+  }
+
+  .user-form .MuiTypography-root {
+    font-size: 14px;
+    padding: 8px 12px;
+    width: 100%;
+    border-radius: 5px;
+    text-align: left;
+  }
+
+  .user-form .MuiTypography-root .MuiSvgIcon-root {
+    font-size: 20px;
+  }
+
+  .edit-copy .MuiTypography-root {
+    background-color: #faf3c0;
+  }
+
+  .edit-copy .MuiTypography-root .MuiSvgIcon-root {
+    color: #f5dd29;
+  }
+
+  .edit-step .MuiTypography-root {
+    background-color: #fce6c6;
+  }
+
+  .edit-step .MuiTypography-root .MuiSvgIcon-root {
+    color: #ffaf3f;
+  }
+
+  .edit-priority .MuiTypography-root {
+    background-color: #f5d3ce;
+  }
+
+  .edit-priority .MuiTypography-root .MuiSvgIcon-root {
+    color: #ef7564;
+  }
+
+  .edit-design .MuiTypography-root {
+    background-color: #eddbf4;
+  }
+
+  .edit-design .MuiTypography-root .MuiSvgIcon-root {
+    color: #cd8de5;
+  }
+
+  .edit-product .MuiTypography-root {
+    background-color: #bcd9ea;
+  }
+
+  .edit-product .MuiTypography-root .MuiSvgIcon-root {
+    color: #5ba4cf;
+  }
+
+  .edit-trello .MuiTypography-root {
+    background-color: #bdecf3;
+  }
+
+  .edit-trello .MuiTypography-root .MuiSvgIcon-root {
+    color: #29cce5;
+  }
+
+  .edit-help .MuiTypography-root {
+    background-color: #d3f6e4;
+  }
+
+  .edit-help .MuiTypography-root .MuiSvgIcon-root {
+    color: #6deca9;
+  }
+
+  .MuiButton-root.save-btn {
+    margin-top: 10px;
+  }
+
 
   /* ends here */
 

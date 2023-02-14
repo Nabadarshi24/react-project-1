@@ -37,7 +37,7 @@ function Cardlist() {
             </div>
          </div>
 
-         <div className="card-list">
+         {/* <div className="card-list">
             <div className="card-list-card">
                <div className="card-title">
                   <span>Title 2</span>
@@ -89,7 +89,7 @@ function Cardlist() {
                   </div>
                </div>
             </div>
-         </div>
+         </div> */}
       </div>
    )
 }
