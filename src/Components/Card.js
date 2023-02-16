@@ -9,7 +9,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CardDetails from './CardDetails';
 import Button from '@mui/material/Button';
 
-function Card() {
+function Card(props) {
+  const { card, cardlist } = props;
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = useState(true);
   const [maxWidth, setMaxWidth] = useState('md');
@@ -30,7 +31,7 @@ function Card() {
           <span><CircleIcon fontSize='0.7rem' /> Product marketing</span>
         </div>
         <div className="card-title">
-          <span>New card</span>
+          <span>{card.title}</span>
         </div>
         <div className="card-footer">
           <div className="due-date">
@@ -57,7 +58,7 @@ function Card() {
           <Button onClick={handleClose}>Close</Button>
         </DialogActions>
         <DialogContent>
-          <CardDetails />
+          <CardDetails card={card} cardlist={cardlist} />
         </DialogContent>
       </Dialog>
     </Fragment>

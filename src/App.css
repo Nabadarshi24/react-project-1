@@ -6,6 +6,7 @@
 
 body {
   background-color: #cb459c;
+  overflow-x: auto;
 }
 
 /* .clearfix {
@@ -16,11 +17,10 @@ body {
 
 .custom-container {
   display: flex;
-  overflow-x: auto;
 }
 
 .cardlist-add-section {
-  max-width: 290px;
+  min-width: 290px;
   height: 100%;
   margin-left: 10px;
 }
@@ -57,16 +57,16 @@ body {
 
 /* Cardlist design starts here */
 
-.card-list-container {
-  display: flex;
-  border-radius: 4px;
-}
-
 .card-list {
   width: 290px;
   padding: 5px;
   background-color: #ebecf0;
   margin-left: 10px;
+  align-self: start;
+}
+
+.editable-card-title .MuiTextField-root {
+  width: 74%;
 }
 
 .MuiSvgIcon-root.menu-icon {
@@ -125,6 +125,19 @@ body {
 
 .dialogue-title {
   display: flex;
+}
+
+.window-title {
+  width: 100%;
+}
+
+.window-title .MuiFormControl-root .MuiOutlinedInput-root {
+  margin-left: 15px;
+}
+
+.window-title .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input {
+  height: 10px;
+  padding: 12px;
 }
 
 .window-title h2 {
