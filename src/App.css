@@ -101,6 +101,7 @@ body {
 /* card-design starts here */
 
 .card {
+  cursor: pointer;
   background-color: #fff;
   font-size: 13px;
 }
@@ -232,6 +233,10 @@ body {
     margin: 15px 0 0 36px;
   }
 
+  .desc-content {
+    cursor: pointer;
+  }
+
   .hidden-desc-btn {
     margin-top: 10px;
   }
@@ -258,6 +263,18 @@ body {
 
   .checklist-add-container {
     margin-left: 2px;
+  }
+
+  .edit-delete-btn .MuiSvgIcon-root {
+    cursor: pointer;
+  }
+
+  .MuiButton-root.add-item-btn {
+    text-transform: none;
+    background-color: #caced7;
+    color: #637188;
+    padding: 4px 12px;
+    margin: 15px 0 0 36px;
   }
 
   .label-details {

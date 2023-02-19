@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -22,12 +22,50 @@ function CardDetails(props) {
    const [open, setOpen] = useState(false);
    const [fullWidth, setFullWidth] = useState(true);
    const [maxWidth, setMaxWidth] = useState('xs');
-   const [editCardTitle, setEditCardTitle] = useState(null);
+   const [editCardTitle, setEditCardTitle] = useState(false);
    const [openLabel, setOpenLabel] = useState(null);
    const [openDate, setOpenDate] = useState(null);
    const [openChecklist, setOpenChecklist] = useState(null);
    const [description, setDescription] = useState(null);
-   // const [hasFocus, setFocus] = useState(true);
+   const [descriptionValue, setDescriptionValue] = useState('');
+   const [title, setTitle] = useState(card.title);
+   const [checklistTitle, setChecklistTitle] = useState('Checklist');
+   const [isEditChecklistTitle, setIsEditChecklistTitle] = useState(false);
+   const [checklists, setChecklists] = useState([]);
+   const [checklistValue, setChecklistValue] = useState('');
+   const [showAddChecklistButton, setAddChecklistButton] = useState(true);
+
+
+   const handleChecklistTitle = (e) => {
+      setChecklistTitle(e.target.value);
+   }
+
+   const handleShowAddChecklistButton = () => {
+      setAddChecklistButton(false);
+   }
+
+   const handleChecklistTitleEdit = () => {
+      setIsEditChecklistTitle(true);
+   }
+
+   const handleCloseAddChecklistButtton = () => {
+      setAddChecklistButton(true);
+   }
+
+   const handleChecklistAddBtn = () => {
+      if (checklistValue === "" || checklistValue == null) {
+         return;
+      }
+
+      const newChecklist = {
+         name: checklistValue
+      }
+
+      const newChecklists = [...checklists, newChecklist];
+
+      setChecklists(newChecklists);
+      setChecklistValue('');
+   }
 
    const handleClickOpen = () => {
       setOpen(true);
@@ -42,7 +80,8 @@ function CardDetails(props) {
    }
 
    const handleEditCardTitleClose = () => {
-      setEditCardTitle(null);
+      setEditCardTitle(false);
+      card.title = title;
    }
 
    const handleLabelOpen = () => {
@@ -59,6 +98,7 @@ function CardDetails(props) {
 
    const handleChecklistDelete = () => {
       setOpenChecklist(null);
+      setChecklists([]);
    }
 
    const handleDescriptionEdit = () => {
@@ -69,10 +109,6 @@ function CardDetails(props) {
       setDescription(null);
    }
 
-   // const handleFocus = () => {
-   //    // setFocus(false);
-   //    setEditCardTitle(null);
-   // }
 
 
    return (
@@ -82,12 +118,16 @@ function CardDetails(props) {
                <span><LaptopMacIcon className='dialogue-icon-size' /></span>
                <div className="window-title">
                   {
-                     editCardTitle === null
+                     editCardTitle === false
                         ? <h2 onClick={handleEditCardTitle}>{card.title}</h2>
                         : <TextField
-                           value={card.title}
+                           focused={editCardTitle}
+                           InputProps={{
+                              autoFocus: true
+                           }}
+                           value={title}
                            fullWidth
-                           className=''
+                           onChange={(e) => setTitle(e.target.value)}
                            variant="outlined"
                            onBlur={handleEditCardTitleClose}
                         />
@@ -131,10 +171,18 @@ function CardDetails(props) {
                         <div className="desc-title">
                            <span><SubjectIcon /></span>
                            <h3>Description</h3>
-                           <Button size='small' variant='outlined' className='edit-desc' onClick={handleDescriptionEdit}>Edit</Button>
+                           <Button size='small' variant='outlined' className='edit-desc' >Edit</Button>
                         </div>
                         <div className="desc-field">
-                           <TextField onClick={handleDescriptionEdit} fullWidth placeholder='Add a more detailed description...' />
+                           {
+                              descriptionValue === ''
+                                 ? <TextField
+                                    onClick={handleDescriptionEdit}
+                                    fullWidth
+                                    placeholder='Add a more detailed description...'
+                                 />
+                                 : <span className='desc-content' onClick={handleDescriptionEdit} >{descriptionValue}</span>
+                           }
                         </div>
                      </>
                      : <div className="hidden-desc">
@@ -146,12 +194,12 @@ function CardDetails(props) {
                         <TextField
                            fullWidth
                            id="outlined-multiline-static"
+                           value={descriptionValue}
+                           onChange={(e) => setDescriptionValue(e.target.value)}
                            multiline
                            // rows={4}
                            minRows={8}
                            maxRows={10}
-                           defaultValue="Default Value..."
-                        // className='hidden-textfield'
                         />
                         <div className="hidden-desc-btn">
                            <span className='margin-right'>
@@ -178,27 +226,64 @@ function CardDetails(props) {
                   openChecklist === null
                      ? null
                      : <>
-                        <div className="checklist-title">
-                           <span><LibraryAddCheckOutlinedIcon /></span>
-                           <h3>Checklist</h3>
-                           <div className="edit-delete-btn">
-                              <EditIcon />
-                              <DeleteForeverIcon onClick={handleChecklistDelete} />
-                           </div>
+                        <>
+                           {
+                              isEditChecklistTitle === false
+                                 ? <div className='checklist-title'>
+                                    <span><LibraryAddCheckOutlinedIcon /></span>
+                                    <h3>{checklistTitle}</h3>
+                                    <div className="edit-delete-btn">
+                                       <EditIcon onClick={handleChecklistTitleEdit}/>
+                                       <DeleteForeverIcon onClick={handleChecklistDelete} />
+                                    </div>
+                                 </div>
+                                 : <>
+                                    <span><LibraryAddCheckOutlinedIcon /></span>
+                                    <TextField
+                                       value={checklistTitle}
+                                       InputProps={{
+                                          autoFocus: true
+                                       }}
+                                       onChange={(e) => setChecklistTitle(e.target.value)}
+                                       id="outlined-basic"
+                                       variant="outlined"
+                                    />
+                                    <div className="add-close-btn">
+                                       <Button onClick={handleChecklistTitle} variant='contained' size='small'>Save</Button>
+                                       <CloseIcon onClick={handleCloseAddChecklistButtton} />
+                                    </div>
+                                 </>
+                           }
+                        </>
+                        <div className="checklist-add-container">
+                           <FormGroup>
+                              {
+                                 checklists.map((checklist, index) => (
+                                    <FormControlLabel
+                                       key={index}
+                                       control={<Checkbox />}
+                                       label={checklist.name} />
+                                 ))
+                              }
+                           </FormGroup>
                         </div>
-                        {/* <div className="checklist-add-container">
-                  <FormGroup>
-                     <FormControlLabel control={<Checkbox />} label="Item 1" />
-                     <FormControlLabel control={<Checkbox />} label="Item 2" />
-                  </FormGroup>
-               </div> */}
-                        <div className='checklist-title-edit'>
-                           <TextField fullWidth id="outlined-basic" variant="outlined" placeholder='Add an item' />
-                           <div className="add-close-btn">
-                              <Button variant='contained' size='small'>Add</Button>
-                              <CloseIcon />
-                           </div>
-                        </div>
+                        {
+                           showAddChecklistButton === true
+                              ? <Button onClick={handleShowAddChecklistButton} className='add-item-btn' varient='outlined'>Add an item</Button>
+                              : <div className='checklist-title-edit'>
+                                 <TextField
+                                    value={checklistValue}
+                                    onChange={(e) => setChecklistValue(e.target.value)}
+                                    fullWidth id="outlined-basic"
+                                    variant="outlined"
+                                    placeholder='Add an item'
+                                 />
+                                 <div className="add-close-btn">
+                                    <Button onClick={handleChecklistAddBtn} variant='contained' size='small'>Add</Button>
+                                    <CloseIcon onClick={handleCloseAddChecklistButtton} />
+                                 </div>
+                              </div>
+                        }
                      </>
                }
             </div>
