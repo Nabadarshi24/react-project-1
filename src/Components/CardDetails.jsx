@@ -22,22 +22,31 @@ function CardDetails(props) {
    const [open, setOpen] = useState(false);
    const [fullWidth, setFullWidth] = useState(true);
    const [maxWidth, setMaxWidth] = useState('xs');
+   const [title, setTitle] = useState(card.title);
    const [editCardTitle, setEditCardTitle] = useState(false);
    const [openLabel, setOpenLabel] = useState(null);
    const [openDate, setOpenDate] = useState(null);
    const [openChecklist, setOpenChecklist] = useState(null);
    const [description, setDescription] = useState(null);
-   const [descriptionValue, setDescriptionValue] = useState('');
-   const [title, setTitle] = useState(card.title);
-   const [checklistTitle, setChecklistTitle] = useState('Checklist');
+   const [descriptionValue, setDescriptionValue] = useState(card.descriptionValue);
+   const [checklistTitle, setChecklistTitle] = useState(card.checklistTitle);
    const [isEditChecklistTitle, setIsEditChecklistTitle] = useState(false);
-   const [checklists, setChecklists] = useState([]);
+   const [checklists, setChecklists] = useState(card.checklists);
    const [checklistValue, setChecklistValue] = useState('');
    const [showAddChecklistButton, setAddChecklistButton] = useState(true);
 
 
-   const handleChecklistTitle = (e) => {
-      setChecklistTitle(e.target.value);
+   const handleChecklistTitle = () => {
+      setIsEditChecklistTitle(false);
+      card.checklistTitle = checklistTitle;
+   }
+
+   const handleCloseChecklistTitleButtton = () => {
+      setIsEditChecklistTitle(false);
+   }
+
+   const handleCloseAddChecklistButtton = () => {
+      setAddChecklistButton(true);
    }
 
    const handleShowAddChecklistButton = () => {
@@ -48,16 +57,13 @@ function CardDetails(props) {
       setIsEditChecklistTitle(true);
    }
 
-   const handleCloseAddChecklistButtton = () => {
-      setAddChecklistButton(true);
-   }
-
    const handleChecklistAddBtn = () => {
       if (checklistValue === "" || checklistValue == null) {
          return;
       }
 
       const newChecklist = {
+         isChecked: false,
          name: checklistValue
       }
 
@@ -65,6 +71,7 @@ function CardDetails(props) {
 
       setChecklists(newChecklists);
       setChecklistValue('');
+      card.checklists = checklists;
    }
 
    const handleClickOpen = () => {
@@ -101,11 +108,24 @@ function CardDetails(props) {
       setChecklists([]);
    }
 
+   const handleChecklistItemDelete = (index) => {
+      const newChecklists = [...checklists];
+
+      newChecklists.splice(index, 1);
+
+      setChecklists(newChecklists);
+   }
+
    const handleDescriptionEdit = () => {
       setDescription(true);
    }
 
-   const handleDescriptionClose = () => {
+   const handleDescriptionSave = () => {
+      setDescription(null);
+      card.descriptionValue = descriptionValue;
+   }
+
+   const handleDescriptionCancel = () => {
       setDescription(null);
    }
 
@@ -146,6 +166,7 @@ function CardDetails(props) {
                      ? null
                      : <><h3>Labels</h3>
                         <div className="label-container">
+                           {card.labels}
                            <Button variant="outlined" className='label-btn' size="small" onClick={handleClickOpen}>+</Button>
                         </div>
                      </>
@@ -171,7 +192,7 @@ function CardDetails(props) {
                         <div className="desc-title">
                            <span><SubjectIcon /></span>
                            <h3>Description</h3>
-                           <Button size='small' variant='outlined' className='edit-desc' >Edit</Button>
+                           <Button size='small' variant='outlined' className='edit-desc' onClick={handleDescriptionEdit} >Edit</Button>
                         </div>
                         <div className="desc-field">
                            {
@@ -206,14 +227,14 @@ function CardDetails(props) {
                               <Button
                                  variant='contained'
                                  size='small'
-                                 onClick={handleDescriptionClose}>
+                                 onClick={handleDescriptionSave}>
                                  Save
                               </Button>
                            </span>
                            <Button
                               varient='outlined'
                               size='small'
-                              onClick={handleDescriptionClose}>
+                              onClick={handleDescriptionCancel}>
                               Cancel
                            </Button>
                         </div>
@@ -233,7 +254,7 @@ function CardDetails(props) {
                                     <span><LibraryAddCheckOutlinedIcon /></span>
                                     <h3>{checklistTitle}</h3>
                                     <div className="edit-delete-btn">
-                                       <EditIcon onClick={handleChecklistTitleEdit}/>
+                                       <EditIcon onClick={handleChecklistTitleEdit} />
                                        <DeleteForeverIcon onClick={handleChecklistDelete} />
                                     </div>
                                  </div>
@@ -250,7 +271,7 @@ function CardDetails(props) {
                                     />
                                     <div className="add-close-btn">
                                        <Button onClick={handleChecklistTitle} variant='contained' size='small'>Save</Button>
-                                       <CloseIcon onClick={handleCloseAddChecklistButtton} />
+                                       <CloseIcon onClick={handleCloseChecklistTitleButtton} />
                                     </div>
                                  </>
                            }
@@ -262,7 +283,8 @@ function CardDetails(props) {
                                     <FormControlLabel
                                        key={index}
                                        control={<Checkbox />}
-                                       label={checklist.name} />
+                                       label={<>{checklist.name}<DeleteForeverIcon onClick={() => handleChecklistItemDelete(index)} /></>}
+                                    />
                                  ))
                               }
                            </FormGroup>
@@ -317,7 +339,7 @@ function CardDetails(props) {
                <CloseIcon onClick={handleClose} />
             </DialogActions>
             <DialogContent className='edit-dialog'>
-               <LabelDetails onSave={handleClose} />
+               <LabelDetails card={card} onSave={handleClose} />
             </DialogContent>
          </Dialog>
       </div>

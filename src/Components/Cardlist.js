@@ -23,7 +23,12 @@ function Cardlist(props) {
       }
 
       const newCard = {
-         title: inputValue
+         title: inputValue,
+         labels: [],
+         descriptionValue: '',
+         date: '',
+         checklistTitle: 'Checklist',
+         checklists: []
       }
       const newCards = [...cards, newCard];
       setCards(newCards);
@@ -62,6 +67,7 @@ function Cardlist(props) {
                      <MoreHorizIcon className='menu-icon' />
                   </div>
             }
+
             {
                cards.map((card, index) => (
                   <Card card={card} cardlist={cardlist} key={index} />
