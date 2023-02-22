@@ -16,6 +16,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LabelDetails from './LabelDetails';
+import CircleIcon from '@mui/icons-material/Circle';
 
 function CardDetails(props) {
    const { card, cardlist } = props;
@@ -71,7 +72,7 @@ function CardDetails(props) {
 
       setChecklists(newChecklists);
       setChecklistValue('');
-      card.checklists = checklists;
+      card.checklists = newChecklists;
    }
 
    const handleClickOpen = () => {
@@ -108,12 +109,23 @@ function CardDetails(props) {
       setChecklists([]);
    }
 
-   const handleChecklistItemDelete = (index) => {
+   const handleChecklistItemDelete = (index, e) => {
+
+      e.preventDefault()
       const newChecklists = [...checklists];
 
       newChecklists.splice(index, 1);
 
       setChecklists(newChecklists);
+   }
+
+   const handleChange = (index, e) => {
+      console.log({ index, ch: e.target.checked });
+
+      // newChecklists.at(index).isChecked = !newChecklists.at(index).isChecked;
+
+      checklists[index].isChecked = e.target.checked;
+
    }
 
    const handleDescriptionEdit = () => {
@@ -166,7 +178,7 @@ function CardDetails(props) {
                      ? null
                      : <><h3>Labels</h3>
                         <div className="label-container">
-                           {card.labels}
+                           <span>{card.labels}</span>
                            <Button variant="outlined" className='label-btn' size="small" onClick={handleClickOpen}>+</Button>
                         </div>
                      </>
@@ -258,7 +270,7 @@ function CardDetails(props) {
                                        <DeleteForeverIcon onClick={handleChecklistDelete} />
                                     </div>
                                  </div>
-                                 : <>
+                                 : <div className='edit-checklist-title'>
                                     <span><LibraryAddCheckOutlinedIcon /></span>
                                     <TextField
                                        value={checklistTitle}
@@ -273,19 +285,25 @@ function CardDetails(props) {
                                        <Button onClick={handleChecklistTitle} variant='contained' size='small'>Save</Button>
                                        <CloseIcon onClick={handleCloseChecklistTitleButtton} />
                                     </div>
-                                 </>
+                                 </div>
                            }
                         </>
                         <div className="checklist-add-container">
                            <FormGroup>
                               {
-                                 checklists.map((checklist, index) => (
-                                    <FormControlLabel
-                                       key={index}
-                                       control={<Checkbox />}
-                                       label={<>{checklist.name}<DeleteForeverIcon onClick={() => handleChecklistItemDelete(index)} /></>}
-                                    />
-                                 ))
+                                 checklists.map((checklist, index) => {
+                                    console.log({ checklist });
+                                    return (
+                                       <>
+                                          <FormControlLabel
+                                             key={index}
+                                             control={<Checkbox checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
+                                             label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
+                                          />
+
+                                       </>
+                                    )
+                                 })
                               }
                            </FormGroup>
                         </div>

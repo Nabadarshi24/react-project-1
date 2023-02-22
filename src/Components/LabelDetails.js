@@ -11,13 +11,20 @@ function LabelDetails(props) {
 
    const getLabelValue = (e) => {
       const { value, checked } = e.target;
-      console.log(value)
+      console.log(value, checked)
+      // const newlabel = {
+      //    isChecked: false,
+      //    title: value
+      // }
+      // const newLabels = [...labels, newlabel];
       if (checked) {
          setLabels([...labels, value]);
       }
       else {
          setLabels(labels.filter((e) => e !== value));
       }
+
+      card.labels = labels;
    }
    return (
       <div className='label-details'>
@@ -31,46 +38,46 @@ function LabelDetails(props) {
                   value='Copy Request'
                   label={<><CircleIcon /> Copy Request</>}
                   className='edit-copy'
-                  onClick={(e) => getLabelValue(e)}
+                  onChange={(e) => getLabelValue(e)}
                />
                <FormControlLabel
                   control={<Checkbox />}
-                  value={<><CircleIcon /> One More Step</>}
+                  value='One More Step'
                   label={<><CircleIcon /> One More Step</>}
                   className='edit-step'
                   onChange={(e) => getLabelValue(e)}
                />
                <FormControlLabel
                   control={<Checkbox />}
-                  value={<><CircleIcon /> Priority</>}
+                  value='Priority'
                   label={<><CircleIcon /> Priority</>}
                   className='edit-priority'
                   onChange={(e) => getLabelValue(e)}
                />
                <FormControlLabel
                   control={<Checkbox />}
-                  value={<><CircleIcon /> Design Team</>}
+                  value='Design Team'
                   label={<><CircleIcon /> Design Team</>}
                   className='edit-design'
                   onChange={(e) => getLabelValue(e)}
                />
                <FormControlLabel
                   control={<Checkbox />}
-                  value={<><CircleIcon /> Product Marketing</>}
+                  value='Product Marketing'
                   label={<><CircleIcon /> Product Marketing</>}
                   className='edit-product'
                   onChange={(e) => getLabelValue(e)}
                />
                <FormControlLabel
                   control={<Checkbox />}
-                  value={<><CircleIcon /> Trello Tip</>}
+                  value='Trello Tip'
                   label={<><CircleIcon /> Trello Tip</>}
                   className='edit-trello'
                   onChange={(e) => getLabelValue(e)}
                />
                <FormControlLabel
                   control={<Checkbox />}
-                  value={<><CircleIcon /> Help</>}
+                  value='Help'
                   label={<><CircleIcon /> Help</>}
                   className='edit-help'
                   onChange={(e) => getLabelValue(e)}
