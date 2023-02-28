@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -19,7 +19,7 @@ import LabelDetails from './LabelDetails';
 import CircleIcon from '@mui/icons-material/Circle';
 
 function CardDetails(props) {
-   const { card, cardlist } = props;
+   const { card, cardlist, callBack } = props;
    const [open, setOpen] = useState(false);
    const [fullWidth, setFullWidth] = useState(true);
    const [maxWidth, setMaxWidth] = useState('xs');
@@ -75,6 +75,25 @@ function CardDetails(props) {
       card.checklists = newChecklists;
    }
 
+   const handleChecklistItemDelete = (index, e) => {
+
+      e.preventDefault();
+      const newChecklists = [...checklists];
+
+      newChecklists.splice(index, 1);
+
+      setChecklists(newChecklists);
+   }
+
+   const handleChange = (index, e) => {
+      const newChecklists = [...checklists];
+      newChecklists[index].isChecked = e.target.checked;
+      // checklists[index].isChecked = !checklists[index].isChecked;
+      setChecklists(newChecklists);
+      // card.checklists = newChecklists;
+      console.log({ index, ch: e.target.checked, val: checklists[index].isChecked });
+   }
+
    const handleClickOpen = () => {
       setOpen(true);
    };
@@ -109,25 +128,6 @@ function CardDetails(props) {
       setChecklists([]);
    }
 
-   const handleChecklistItemDelete = (index, e) => {
-
-      e.preventDefault()
-      const newChecklists = [...checklists];
-
-      newChecklists.splice(index, 1);
-
-      setChecklists(newChecklists);
-   }
-
-   const handleChange = (index, e) => {
-      console.log({ index, ch: e.target.checked });
-
-      // newChecklists.at(index).isChecked = !newChecklists.at(index).isChecked;
-
-      checklists[index].isChecked = e.target.checked;
-
-   }
-
    const handleDescriptionEdit = () => {
       setDescription(true);
    }
@@ -135,6 +135,7 @@ function CardDetails(props) {
    const handleDescriptionSave = () => {
       setDescription(null);
       card.descriptionValue = descriptionValue;
+      callBack(card.descriptionValue);
    }
 
    const handleDescriptionCancel = () => {
@@ -233,6 +234,9 @@ function CardDetails(props) {
                            // rows={4}
                            minRows={8}
                            maxRows={10}
+                           InputProps={{
+                              autoFocus: true
+                           }}
                         />
                         <div className="hidden-desc-btn">
                            <span className='margin-right'>
@@ -294,14 +298,11 @@ function CardDetails(props) {
                                  checklists.map((checklist, index) => {
                                     console.log({ checklist });
                                     return (
-                                       <>
-                                          <FormControlLabel
-                                             key={index}
-                                             control={<Checkbox checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
-                                             label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
-                                          />
-
-                                       </>
+                                       <FormControlLabel
+                                          key={index}
+                                          control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
+                                          label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
+                                       />
                                     )
                                  })
                               }

@@ -2,9 +2,9 @@ import React, { Fragment, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import CircleIcon from '@mui/icons-material/Circle';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import SubjectIcon from '@mui/icons-material/Subject';
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
+import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CardDetails from './CardDetails';
 import Button from '@mui/material/Button';
@@ -14,6 +14,11 @@ function Card(props) {
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = useState(true);
   const [maxWidth, setMaxWidth] = useState('md');
+  const [descriptionValue, setDescriptionValue] = useState('');
+
+  const callBack = (descriptionValue) => {
+    setDescriptionValue(descriptionValue);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,8 +32,8 @@ function Card(props) {
     <Fragment>
       <div onClick={handleClickOpen} className="card">
         <div className="card-labels">
-          <span><CircleIcon fontSize='0.7rem' /> One more step</span>
-          <span><CircleIcon fontSize='0.7rem' /> Product marketing</span>
+          <span>{card.labels}</span>
+          <ModeEditIcon className='card-delete-icon' fontSize='15px' />
         </div>
         <div className="card-title">
           <span>{card.title}</span>
@@ -38,11 +43,15 @@ function Card(props) {
             <span><AccessTimeIcon className='font-size' /></span>
             <span>Feb 8, 2025</span>
           </div>
-          <div className="description">
-            <SubjectIcon className='font-size' />
-          </div>
+          {
+            descriptionValue === ''
+              ? null
+              : <div className="description">
+                <SubjectIcon className='font-size' />
+              </div>
+          }
           <div className="checklist-items">
-            <span><LibraryAddCheckIcon className='font-size' /></span>
+            <span><LibraryAddCheckOutlinedIcon className='font-size' /></span>
             <span>0/4</span>
           </div>
         </div>
@@ -58,7 +67,7 @@ function Card(props) {
           <Button onClick={handleClose}>Close</Button>
         </DialogActions>
         <DialogContent>
-          <CardDetails card={card} cardlist={cardlist} />
+          <CardDetails callBack={callBack} card={card} cardlist={cardlist} />
         </DialogContent>
       </Dialog>
     </Fragment>

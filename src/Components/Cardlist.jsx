@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import TextField from '@mui/material/TextField';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -7,18 +7,33 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import Card from './Card';
 import DoneIcon from '@mui/icons-material/Done';
+import CardlistAddDelete from './CardlistAddDelete';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 
 function Cardlist(props) {
    const { cardlist } = props;
    console.log(props);
-   const [cardListTitle, setCardListTitle] = useState(false);
+   const [open, setOpen] = useState(false);
+   const [fullWidth, setFullWidth] = useState(true);
+   const [maxWidth, setMaxWidth] = useState('xs');
+   const [cardListTitle, setCardListTitle] = useState('');
+   const [editCardlistTitleSave, setEditCardlistTitleSave] = useState(cardlist.title);
    const [updateCard, setUpdateCard] = useState(null);
-
    const [cards, setCards] = useState([]);
    const [inputValue, setInputValue] = useState('');
 
+   const handleClickOpen = () => {
+      setOpen(true);
+   };
+
+   const handleDialogClose = () => {
+      setOpen(false);
+   };
+
    const handleAddCardBtn = () => {
-      if (inputValue === "" || inputValue == null) {
+      if (inputValue === "" || inputValue === null) {
          return;
       }
 
@@ -39,8 +54,9 @@ function Cardlist(props) {
       setCardListTitle(true);
    }
 
-   const handleClose = () => {
-      setCardListTitle(false);
+   const handleClose = (e) => {
+      setCardListTitle('');
+      cardlist.title = editCardlistTitleSave;
    }
 
    const handleUpdateCard = () => {
@@ -54,17 +70,25 @@ function Cardlist(props) {
       <div className="card-list">
          <div className="card-list-card">
             {
-               cardListTitle === false
+               cardListTitle === ''
                   ? <div className="card-title">
                      <span>{cardlist.title}</span>
                      <ModeEditIcon fontSize='15px' onClick={handleTitle} />
                      <MoreHorizIcon className='menu-icon' />
                   </div>
                   : <div className="editable-card-title">
-                     <TextField className='title-edit-field' variant="outlined" />
+                     <TextField
+                        className='title-edit-field'
+                        variant="outlined"
+                        value={editCardlistTitleSave}
+                        InputProps={{
+                           autoFocus: true
+                        }}
+                        onChange={(e) => setEditCardlistTitleSave(e.target.value)}
+                     />
                      <DoneIcon onClick={handleClose} />
                      <CloseIcon onClick={handleClose} />
-                     <MoreHorizIcon className='menu-icon' />
+                     <MoreHorizIcon onClick={handleClickOpen} className='menu-icon' />
                   </div>
             }
 
@@ -96,6 +120,19 @@ function Cardlist(props) {
                }
             </div>
          </div>
+         <Dialog
+            fullWidth={fullWidth}
+            maxWidth={maxWidth}
+            open={open}
+            onClose={handleDialogClose}
+         >
+            <DialogActions>
+               <CloseIcon onClick={handleDialogClose} />
+            </DialogActions>
+            <DialogContent className='edit-dialog'>
+               <CardlistAddDelete />
+            </DialogContent>
+         </Dialog>
       </div>
    )
 }
