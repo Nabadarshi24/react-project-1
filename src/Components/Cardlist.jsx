@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import TextField from '@mui/material/TextField';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -7,29 +7,24 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import Card from './Card';
 import DoneIcon from '@mui/icons-material/Done';
-import CardlistAddDelete from './CardlistAddDelete';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 
 function Cardlist(props) {
    const { cardlist } = props;
    console.log(props);
-   const [open, setOpen] = useState(false);
-   const [fullWidth, setFullWidth] = useState(true);
-   const [maxWidth, setMaxWidth] = useState('xs');
    const [cardListTitle, setCardListTitle] = useState('');
    const [editCardlistTitleSave, setEditCardlistTitleSave] = useState(cardlist.title);
    const [updateCard, setUpdateCard] = useState(null);
    const [cards, setCards] = useState([]);
    const [inputValue, setInputValue] = useState('');
+   const [anchorEl, setAnchorEl] = useState(null);
+   const open = Boolean(anchorEl);
 
-   const handleClickOpen = () => {
-      setOpen(true);
+   const handleMenuClick = (event) => {
+      setAnchorEl(event.currentTarget);
    };
-
-   const handleDialogClose = () => {
-      setOpen(false);
+   const handleMenuClose = () => {
+      setAnchorEl(null);
    };
 
    const handleAddCardBtn = () => {
@@ -42,7 +37,8 @@ function Cardlist(props) {
          labels: [],
          descriptionValue: '',
          date: '',
-         checklistTitle: 'Checklist',
+         checklistTitle: '',
+         // checkedlistCount: '',
          checklists: []
       }
       const newCards = [...cards, newCard];
@@ -74,9 +70,31 @@ function Cardlist(props) {
                   ? <div className="card-title">
                      <span>{cardlist.title}</span>
                      <ModeEditIcon fontSize='15px' onClick={handleTitle} />
-                     <MoreHorizIcon className='menu-icon' />
+                     <IconButton
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleMenuClick}
+                     >
+                        <MoreHorizIcon className='menu-icon' />
+                     </IconButton>
+                     <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleMenuClose}
+                        MenuListProps={{
+                           'aria-labelledby': 'basic-button',
+                        }}
+                     >
+                        <MenuItem onClick={handleMenuClose}>Add card...</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>Copy list...</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>Move list...</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>Archive this list</MenuItem>
+                     </Menu>
                   </div>
-                  : <div className="editable-card-title">
+                  : <div className="editable-card-title clearfix">
                      <TextField
                         className='title-edit-field'
                         variant="outlined"
@@ -86,9 +104,8 @@ function Cardlist(props) {
                         }}
                         onChange={(e) => setEditCardlistTitleSave(e.target.value)}
                      />
-                     <DoneIcon onClick={handleClose} />
-                     <CloseIcon onClick={handleClose} />
-                     <MoreHorizIcon onClick={handleClickOpen} className='menu-icon' />
+                     <DoneIcon className='common-font-size' onClick={handleClose} />
+                     <CloseIcon className='common-font-size' onClick={handleClose} />
                   </div>
             }
 
@@ -120,19 +137,6 @@ function Cardlist(props) {
                }
             </div>
          </div>
-         <Dialog
-            fullWidth={fullWidth}
-            maxWidth={maxWidth}
-            open={open}
-            onClose={handleDialogClose}
-         >
-            <DialogActions>
-               <CloseIcon onClick={handleDialogClose} />
-            </DialogActions>
-            <DialogContent className='edit-dialog'>
-               <CardlistAddDelete />
-            </DialogContent>
-         </Dialog>
       </div>
    )
 }

@@ -27,7 +27,7 @@ function CardDetails(props) {
    const [editCardTitle, setEditCardTitle] = useState(false);
    const [openLabel, setOpenLabel] = useState(null);
    const [openDate, setOpenDate] = useState(null);
-   const [openChecklist, setOpenChecklist] = useState(null);
+   const [openChecklist, setOpenChecklist] = useState(card.checklistTitle.length>0);
    const [description, setDescription] = useState(null);
    const [descriptionValue, setDescriptionValue] = useState(card.descriptionValue);
    const [checklistTitle, setChecklistTitle] = useState(card.checklistTitle);
@@ -83,12 +83,13 @@ function CardDetails(props) {
       newChecklists.splice(index, 1);
 
       setChecklists(newChecklists);
+      card.checklists = newChecklists;
    }
 
    const handleChange = (index, e) => {
       const newChecklists = [...checklists];
       newChecklists[index].isChecked = e.target.checked;
-      // checklists[index].isChecked = !checklists[index].isChecked;
+
       setChecklists(newChecklists);
       // card.checklists = newChecklists;
       console.log({ index, ch: e.target.checked, val: checklists[index].isChecked });
@@ -120,12 +121,17 @@ function CardDetails(props) {
    }
 
    const handleChecklistOpen = () => {
+      card.checklistTitle = 'Checklist';
+      setChecklistTitle("Checklist");
       setOpenChecklist(true);
    }
 
    const handleChecklistDelete = () => {
-      setOpenChecklist(null);
+      setOpenChecklist(false);
       setChecklists([]);
+      setChecklistTitle("");
+      card.checklists = [];
+      card.checklistTitle = "";
    }
 
    const handleDescriptionEdit = () => {
@@ -260,7 +266,7 @@ function CardDetails(props) {
             </div>
             <div className="checklist">
                {
-                  openChecklist === null
+                  openChecklist === false
                      ? null
                      : <>
                         <>
@@ -298,11 +304,18 @@ function CardDetails(props) {
                                  checklists.map((checklist, index) => {
                                     console.log({ checklist });
                                     return (
-                                       <FormControlLabel
-                                          key={index}
-                                          control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
-                                          label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
-                                       />
+                                       checklist.isChecked === false
+                                          ? <FormControlLabel
+                                             key={index}
+                                             control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
+                                             label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
+                                          />
+                                          : <FormControlLabel
+                                             key={index}
+                                             className='completed'
+                                             control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
+                                             label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
+                                          />
                                     )
                                  })
                               }

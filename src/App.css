@@ -66,8 +66,13 @@ body {
   align-self: start;
 }
 
+#basic-button {
+  float: right;
+  margin-top: -5px;
+}
+
 .editable-card-title .MuiTextField-root {
-  width: 74%;
+  width: 85%;
 }
 
 .MuiSvgIcon-root {
@@ -75,7 +80,12 @@ body {
 }
 
 .MuiSvgIcon-root.menu-icon {
-  float: right;
+  font-size: 21px;
+}
+
+.MuiSvgIcon-root.common-font-size {
+  font-size: 17px;
+  margin-left: 3px;
 }
 
 .title-edit-field .MuiOutlinedInput-input {
@@ -120,6 +130,7 @@ body {
   position: absolute;
   right: 0;
   top: 3px;
+  font-size: 17px;
 }
 
 .card:hover .MuiSvgIcon-root.card-delete-icon {
@@ -275,6 +286,10 @@ body {
   cursor: pointer;
   font-size: 16px;
   margin: 0 462px 0 0;
+}
+
+.completed {
+  text-decoration: line-through;
 }
 
 .checklist-title-edit {

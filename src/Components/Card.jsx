@@ -8,6 +8,7 @@ import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutl
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CardDetails from './CardDetails';
 import Button from '@mui/material/Button';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 function Card(props) {
   const { card, cardlist } = props;
@@ -33,7 +34,7 @@ function Card(props) {
       <div onClick={handleClickOpen} className="card">
         <div className="card-labels">
           <span>{card.labels}</span>
-          <ModeEditIcon className='card-delete-icon' fontSize='15px' />
+          <DeleteOutlinedIcon className='card-delete-icon' fontSize='15px' />
         </div>
         <div className="card-title">
           <span>{card.title}</span>
@@ -51,8 +52,15 @@ function Card(props) {
               </div>
           }
           <div className="checklist-items">
-            <span><LibraryAddCheckOutlinedIcon className='font-size' /></span>
-            <span>0/4</span>
+            {
+              !card.checklistTitle
+                ? null
+                : <>
+                  <span><LibraryAddCheckOutlinedIcon className='font-size' /></span>
+                  {/* <span>{card.checkedlistCount}/{card.checklists.length}</span> */}
+                  <span>{card.checklists.filter(x => x.isChecked).length}/{card.checklists.length}</span>
+                </>
+            }
           </div>
         </div>
       </div>
