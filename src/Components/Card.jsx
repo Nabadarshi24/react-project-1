@@ -53,13 +53,11 @@ function Card(props) {
           }
           <div className="checklist-items">
             {
-              !card.checklistTitle
-                ? null
-                : <>
-                  <span><LibraryAddCheckOutlinedIcon className='font-size' /></span>
-                  {/* <span>{card.checkedlistCount}/{card.checklists.length}</span> */}
-                  <span>{card.checklists.filter(x => x.isChecked).length}/{card.checklists.length}</span>
-                </>
+              card.checklistTitle !== '' &&
+              <>
+                <span><LibraryAddCheckOutlinedIcon className='font-size' /></span>
+                <span>{card.checklists.filter(x => x.isChecked).length}/{card.checklists.length}</span>
+              </>
             }
           </div>
         </div>

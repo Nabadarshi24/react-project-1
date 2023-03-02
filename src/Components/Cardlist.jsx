@@ -23,6 +23,7 @@ function Cardlist(props) {
    const handleMenuClick = (event) => {
       setAnchorEl(event.currentTarget);
    };
+
    const handleMenuClose = () => {
       setAnchorEl(null);
    };
@@ -34,11 +35,12 @@ function Cardlist(props) {
 
       const newCard = {
          title: inputValue,
+         labelTitle: '',
+         dateTitle: '',
          labels: [],
          descriptionValue: '',
          date: '',
          checklistTitle: '',
-         // checkedlistCount: '',
          checklists: []
       }
       const newCards = [...cards, newCard];

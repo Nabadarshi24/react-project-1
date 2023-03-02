@@ -17,6 +17,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LabelDetails from './LabelDetails';
 import CircleIcon from '@mui/icons-material/Circle';
+import { ClassNames } from '@emotion/react';
 
 function CardDetails(props) {
    const { card, cardlist, callBack } = props;
@@ -25,16 +26,18 @@ function CardDetails(props) {
    const [maxWidth, setMaxWidth] = useState('xs');
    const [title, setTitle] = useState(card.title);
    const [editCardTitle, setEditCardTitle] = useState(false);
-   const [openLabel, setOpenLabel] = useState(null);
-   const [openDate, setOpenDate] = useState(null);
-   const [openChecklist, setOpenChecklist] = useState(card.checklistTitle.length>0);
-   const [description, setDescription] = useState(null);
-   const [descriptionValue, setDescriptionValue] = useState(card.descriptionValue);
+   const [openLabel, setOpenLabel] = useState(card.labelTitle.length > 0);
+   const [labelTitle, setLabelTitle] = useState(card.labelTitle);
+   const [openDate, setOpenDate] = useState(card.dateTitle.length > 0);
+   const [dateTitle, setDateTitle] = useState(card.dateTitle);
+   const [openChecklist, setOpenChecklist] = useState(card.checklistTitle.length > 0);
    const [checklistTitle, setChecklistTitle] = useState(card.checklistTitle);
    const [isEditChecklistTitle, setIsEditChecklistTitle] = useState(false);
    const [checklists, setChecklists] = useState(card.checklists);
    const [checklistValue, setChecklistValue] = useState('');
    const [showAddChecklistButton, setAddChecklistButton] = useState(true);
+   const [description, setDescription] = useState(null);
+   const [descriptionValue, setDescriptionValue] = useState(card.descriptionValue);
 
 
    const handleChecklistTitle = () => {
@@ -114,15 +117,19 @@ function CardDetails(props) {
 
    const handleLabelOpen = () => {
       setOpenLabel(true);
+      setLabelTitle('Label');
+      card.labelTitle = 'Label';
    }
 
    const handleDateOpen = () => {
       setOpenDate(true);
+      setDateTitle('Dates');
+      card.dateTitle = 'Dates';
    }
 
    const handleChecklistOpen = () => {
       card.checklistTitle = 'Checklist';
-      setChecklistTitle("Checklist");
+      setChecklistTitle('Checklist');
       setOpenChecklist(true);
    }
 
@@ -147,6 +154,44 @@ function CardDetails(props) {
    const handleDescriptionCancel = () => {
       setDescription(null);
    }
+
+   const labelItems = [
+      {
+         value: 'Copy Request',
+         className: 'edit-copy',
+         label: 'Copy Request'
+      },
+      {
+         value: 'One More Step',
+         className: 'edit-step',
+         label: 'One More Step'
+      },
+      {
+         value: 'Priority',
+         className: 'edit-priority',
+         label: 'Priority'
+      },
+      {
+         value: 'Design Team',
+         className: 'edit-design',
+         label: 'Design Team'
+      },
+      {
+         value: 'Product Marketing',
+         className: 'edit-product',
+         label: 'Product Marketing'
+      },
+      {
+         value: 'Trello Tip',
+         className: 'edit-trello',
+         label: 'Trello Tip'
+      },
+      {
+         value: 'Help',
+         className: 'edit-help',
+         label: 'Help'
+      }
+   ]
 
 
 
@@ -181,20 +226,36 @@ function CardDetails(props) {
          <div className="dialogue-main-col">
             <div className="label-date-container">
                {
-                  openLabel === null
+                  openLabel === false
                      ? null
-                     : <><h3>Labels</h3>
+                     : <><h3>{labelTitle}</h3>
                         <div className="label-container">
-                           <span>{card.labels}</span>
-                           <Button variant="outlined" className='label-btn' size="small" onClick={handleClickOpen}>+</Button>
+                           {
+                              card.labels.map((label, index) => (
+                                 <span
+                                    className='label-item'
+                                    // className={ClassNames(card.labels.includes(labelItems[index].value)===true ? `${labelItems[index].className}` : null)}
+                                    key={index}>
+                                    <CircleIcon className='icon-size' />
+                                    {label}
+                                 </span>
+                              ))
+                           }
+                           <Button
+                              variant="outlined"
+                              className='label-btn'
+                              size="small"
+                              onClick={handleClickOpen}>
+                              +
+                           </Button>
                         </div>
                      </>
                }
 
                {
-                  openDate === null
+                  openDate === false
                      ? null
-                     : <><h3>Dates</h3>
+                     : <><h3>{dateTitle}</h3>
                         <div className="date-container">
                            <div className="date-container-btn">
                               <span className='margin-right'>Feb 14, 2024</span>
