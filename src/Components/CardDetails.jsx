@@ -17,7 +17,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LabelDetails from './LabelDetails';
 import CircleIcon from '@mui/icons-material/Circle';
-import { ClassNames } from '@emotion/react';
+import Config, { labelItems } from '../Config';
 
 function CardDetails(props) {
    const { card, cardlist, callBack } = props;
@@ -155,45 +155,6 @@ function CardDetails(props) {
       setDescription(null);
    }
 
-   const labelItems = [
-      {
-         value: 'Copy Request',
-         className: 'edit-copy',
-         label: 'Copy Request'
-      },
-      {
-         value: 'One More Step',
-         className: 'edit-step',
-         label: 'One More Step'
-      },
-      {
-         value: 'Priority',
-         className: 'edit-priority',
-         label: 'Priority'
-      },
-      {
-         value: 'Design Team',
-         className: 'edit-design',
-         label: 'Design Team'
-      },
-      {
-         value: 'Product Marketing',
-         className: 'edit-product',
-         label: 'Product Marketing'
-      },
-      {
-         value: 'Trello Tip',
-         className: 'edit-trello',
-         label: 'Trello Tip'
-      },
-      {
-         value: 'Help',
-         className: 'edit-help',
-         label: 'Help'
-      }
-   ]
-
-
 
    return (
       <div className='card-details clearfix'>
@@ -231,15 +192,17 @@ function CardDetails(props) {
                      : <><h3>{labelTitle}</h3>
                         <div className="label-container">
                            {
-                              card.labels.map((label, index) => (
-                                 <span
-                                    className='label-item'
-                                    // className={ClassNames(card.labels.includes(labelItems[index].value)===true ? `${labelItems[index].className}` : null)}
-                                    key={index}>
+                              card.labels.map((label, index) => {
+                                 // console.log({index: index}, {lbI: labelItems[index].label});
+                                 const selectedLabel = labelItems.find(labelItem => labelItem.value === label);
+                                 return <span
+                                    className={`label-item ${selectedLabel.className}`}
+                                    key={index}
+                                 >
                                     <CircleIcon className='icon-size' />
-                                    {label}
+                                    {selectedLabel.label}
                                  </span>
-                              ))
+                              })
                            }
                            <Button
                               variant="outlined"

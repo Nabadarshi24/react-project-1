@@ -24,6 +24,14 @@ function CardlistAdd() {
       setCardlists(newCardlists);
       setInputValue('');
    }
+
+   const handleDeleteCardlistBtn = (index) => {
+      const newCardlists = [...cardlists];
+
+      newCardlists.splice(index, 1);
+      setCardlists(newCardlists);
+      // cardlists = newCardlists;
+   }
    const handleAddListBtn = () => {
       setUpdateAddList(true);
    }
@@ -36,7 +44,7 @@ function CardlistAdd() {
       <div className='custom-container'>
          {
             cardlists.map((cardlist, index) => (
-               <Cardlist cardlist={cardlist} key={index} />
+               <Cardlist handleDeleteCardlistBtn={handleDeleteCardlistBtn} cardlist={cardlist} index={index} key={index} />
             ))
          }
          <div className="cardlist-add-section">

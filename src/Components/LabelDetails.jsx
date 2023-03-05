@@ -4,49 +4,50 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import CircleIcon from '@mui/icons-material/Circle';
 import Button from '@mui/material/Button';
+import Config, { labelItems } from '../Config';
 
 function LabelDetails(props) {
    const { card, onSave } = props;
    const [labels, setLabels] = useState(card.labels);
    console.log(labels);
 
-   const labelItems = [
-      {
-         value: 'Copy Request',
-         className: 'edit-copy',
-         label: 'Copy Request'
-      },
-      {
-         value: 'One More Step',
-         className: 'edit-step',
-         label: 'One More Step'
-      },
-      {
-         value: 'Priority',
-         className: 'edit-priority',
-         label: 'Priority'
-      },
-      {
-         value: 'Design Team',
-         className: 'edit-design',
-         label: 'Design Team'
-      },
-      {
-         value: 'Product Marketing',
-         className: 'edit-product',
-         label: 'Product Marketing'
-      },
-      {
-         value: 'Trello Tip',
-         className: 'edit-trello',
-         label: 'Trello Tip'
-      },
-      {
-         value: 'Help',
-         className: 'edit-help',
-         label: 'Help'
-      }
-   ]
+   // const labelItems = [
+   //    {
+   //       value: 'COPY',
+   //       className: 'edit-copy',
+   //       label: 'Copy Request'
+   //    },
+   //    {
+   //       value: 'STEP',
+   //       className: 'edit-step',
+   //       label: 'One More Step'
+   //    },
+   //    {
+   //       value: 'PRIORITY',
+   //       className: 'edit-priority',
+   //       label: 'Priority'
+   //    },
+   //    {
+   //       value: 'Design Team',
+   //       className: 'edit-design',
+   //       label: 'Design Team'
+   //    },
+   //    {
+   //       value: 'Product Marketing',
+   //       className: 'edit-product',
+   //       label: 'Product Marketing'
+   //    },
+   //    {
+   //       value: 'Trello Tip',
+   //       className: 'edit-trello',
+   //       label: 'Trello Tip'
+   //    },
+   //    {
+   //       value: 'Help',
+   //       className: 'edit-help',
+   //       label: 'Help'
+   //    }
+   // ]
 
    const getLabelValue = (e) => {
       const { value, checked } = e.target;

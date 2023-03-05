@@ -10,7 +10,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 
 function Cardlist(props) {
-   const { cardlist } = props;
+   const { cardlist, handleDeleteCardlistBtn, index } = props;
    console.log(props);
    const [cardListTitle, setCardListTitle] = useState('');
    const [editCardlistTitleSave, setEditCardlistTitleSave] = useState(cardlist.title);
@@ -27,6 +27,11 @@ function Cardlist(props) {
    const handleMenuClose = () => {
       setAnchorEl(null);
    };
+
+   const handleCardlistDelete = () => {
+      setAnchorEl(null);
+      handleDeleteCardlistBtn(index);
+   }
 
    const handleAddCardBtn = () => {
       if (inputValue === "" || inputValue === null) {
@@ -46,6 +51,14 @@ function Cardlist(props) {
       const newCards = [...cards, newCard];
       setCards(newCards);
       setInputValue('');
+   }
+
+   const handleCardDeleteBtn = (index) => {
+      const newCards = [...cards];
+
+      newCards.splice(index, 1);
+      setCards(newCards);
+      console.log(cards);
    }
 
    const handleTitle = () => {
@@ -91,9 +104,7 @@ function Cardlist(props) {
                         }}
                      >
                         <MenuItem onClick={handleMenuClose}>Add card...</MenuItem>
-                        <MenuItem onClick={handleMenuClose}>Copy list...</MenuItem>
-                        <MenuItem onClick={handleMenuClose}>Move list...</MenuItem>
-                        <MenuItem onClick={handleMenuClose}>Archive this list</MenuItem>
+                        <MenuItem onClick={handleCardlistDelete}>Archive this list</MenuItem>
                      </Menu>
                   </div>
                   : <div className="editable-card-title clearfix">
@@ -113,7 +124,7 @@ function Cardlist(props) {
 
             {
                cards.map((card, index) => (
-                  <Card card={card} cardlist={cardlist} key={index} />
+                  <Card card={card} handleCardDeleteBtn={handleCardDeleteBtn} cardlist={cardlist} index={index} key={index} />
                ))
             }
 

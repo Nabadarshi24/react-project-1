@@ -123,6 +123,20 @@ body {
 
 .card-labels {
   position: relative;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.card-labels .card-label-item .MuiSvgIcon-root {
+  font-size: 11px;
+}
+.card-label-item {
+  margin-right: 5px;
+  margin-top: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0 4px 3px 3px;
 }
 
 .MuiSvgIcon-root.card-delete-icon {
@@ -204,6 +218,8 @@ body {
   margin-right: 3px;
   font-size: 14px;
   cursor: pointer;
+  padding: 6px 6px 7px 5px;
+  border-radius: 3px;
 }
 
 .dialogue-main-col h3 {
@@ -348,58 +364,86 @@ body {
   font-size: 20px;
 }
 
+.edit-copy.card-label-item,
+.edit-copy.label-item,
 .edit-copy .MuiTypography-root {
   background-color: #faf3c0;
 }
 
+.edit-copy.card-label-item .MuiSvgIcon-root,
+.edit-copy.label-item .MuiSvgIcon-root,
 .edit-copy .MuiTypography-root .MuiSvgIcon-root {
   color: #f5dd29;
 }
 
+.edit-step.card-label-item,
+.edit-step.label-item,
 .edit-step .MuiTypography-root {
   background-color: #fce6c6;
 }
 
+.edit-step.card-label-item .MuiSvgIcon-root,
+.edit-step.label-item .MuiSvgIcon-root,
 .edit-step .MuiTypography-root .MuiSvgIcon-root {
   color: #ffaf3f;
 }
 
+.edit-priority.card-label-item,
+.edit-priority.label-item,
 .edit-priority .MuiTypography-root {
   background-color: #f5d3ce;
 }
 
+.edit-priority.card-label-item .MuiSvgIcon-root,
+.edit-priority.label-item .MuiSvgIcon-root,
 .edit-priority .MuiTypography-root .MuiSvgIcon-root {
   color: #ef7564;
 }
 
+.edit-design.card-label-item,
+.edit-design.label-item,
 .edit-design .MuiTypography-root {
   background-color: #eddbf4;
 }
 
+.edit-design.card-label-item .MuiSvgIcon-root,
+.edit-design.label-item .MuiSvgIcon-root,
 .edit-design .MuiTypography-root .MuiSvgIcon-root {
   color: #cd8de5;
 }
 
+.edit-product.card-label-item,
+.edit-product.label-item,
 .edit-product .MuiTypography-root {
   background-color: #bcd9ea;
 }
 
+.edit-product.card-label-item .MuiSvgIcon-root,
+.edit-product.label-item .MuiSvgIcon-root,
 .edit-product .MuiTypography-root .MuiSvgIcon-root {
   color: #5ba4cf;
 }
 
+.edit-trello.card-label-item,
+.edit-trello.label-item,
 .edit-trello .MuiTypography-root {
   background-color: #bdecf3;
 }
 
+.edit-trello.card-label-item .MuiSvgIcon-root,
+.edit-trello.label-item .MuiSvgIcon-root,
 .edit-trello .MuiTypography-root .MuiSvgIcon-root {
   color: #29cce5;
 }
 
+.edit-help.card-label-item,
+.edit-help.label-item,
 .edit-help .MuiTypography-root {
   background-color: #d3f6e4;
 }
 
+.edit-help.card-label-item .MuiSvgIcon-root,
+.edit-help.label-item .MuiSvgIcon-root,
 .edit-help .MuiTypography-root .MuiSvgIcon-root {
   color: #6deca9;
 }
@@ -407,7 +451,6 @@ body {
 .MuiButton-root.save-btn {
   margin-top: 10px;
 }
-
 
 /* ends here */
 
