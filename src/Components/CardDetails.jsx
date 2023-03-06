@@ -19,7 +19,7 @@ import LabelDetails from './LabelDetails';
 import CircleIcon from '@mui/icons-material/Circle';
 import Config, { labelItems } from '../Config';
 
-function CardDetails(props) {
+const CardDetails = (props) => {
    const { card, cardlist, callBack } = props;
    const [open, setOpen] = useState(false);
    const [fullWidth, setFullWidth] = useState(true);
@@ -42,24 +42,25 @@ function CardDetails(props) {
 
    const handleChecklistTitle = () => {
       setIsEditChecklistTitle(false);
+
       card.checklistTitle = checklistTitle;
-   }
+   };
 
    const handleCloseChecklistTitleButtton = () => {
       setIsEditChecklistTitle(false);
-   }
+   };
 
    const handleCloseAddChecklistButtton = () => {
       setAddChecklistButton(true);
-   }
+   };
 
    const handleShowAddChecklistButton = () => {
       setAddChecklistButton(false);
-   }
+   };
 
    const handleChecklistTitleEdit = () => {
       setIsEditChecklistTitle(true);
-   }
+   };
 
    const handleChecklistAddBtn = () => {
       if (checklistValue === "" || checklistValue == null) {
@@ -76,18 +77,16 @@ function CardDetails(props) {
       setChecklists(newChecklists);
       setChecklistValue('');
       card.checklists = newChecklists;
-   }
+   };
 
    const handleChecklistItemDelete = (index, e) => {
-
       e.preventDefault();
       const newChecklists = [...checklists];
-
       newChecklists.splice(index, 1);
 
       setChecklists(newChecklists);
       card.checklists = newChecklists;
-   }
+   };
 
    const handleChange = (index, e) => {
       const newChecklists = [...checklists];
@@ -96,7 +95,7 @@ function CardDetails(props) {
       setChecklists(newChecklists);
       // card.checklists = newChecklists;
       console.log({ index, ch: e.target.checked, val: checklists[index].isChecked });
-   }
+   };
 
    const handleClickOpen = () => {
       setOpen(true);
@@ -108,53 +107,55 @@ function CardDetails(props) {
 
    const handleEditCardTitle = () => {
       setEditCardTitle(true);
-   }
+   };
 
    const handleEditCardTitleClose = () => {
       setEditCardTitle(false);
       card.title = title;
-   }
+   };
 
    const handleLabelOpen = () => {
       setOpenLabel(true);
       setLabelTitle('Label');
       card.labelTitle = 'Label';
-   }
+   };
 
    const handleDateOpen = () => {
       setOpenDate(true);
       setDateTitle('Dates');
       card.dateTitle = 'Dates';
-   }
+   };
 
    const handleChecklistOpen = () => {
-      card.checklistTitle = 'Checklist';
       setChecklistTitle('Checklist');
       setOpenChecklist(true);
-   }
+
+      card.checklistTitle = 'Checklist';
+   };
 
    const handleChecklistDelete = () => {
       setOpenChecklist(false);
       setChecklists([]);
       setChecklistTitle("");
+
       card.checklists = [];
       card.checklistTitle = "";
-   }
+   };
 
    const handleDescriptionEdit = () => {
       setDescription(true);
-   }
+   };
 
    const handleDescriptionSave = () => {
       setDescription(null);
-      card.descriptionValue = descriptionValue;
       callBack(card.descriptionValue);
-   }
+      
+      card.descriptionValue = descriptionValue;
+   };
 
    const handleDescriptionCancel = () => {
       setDescription(null);
-   }
-
+   };
 
    return (
       <div className='card-details clearfix'>
@@ -290,85 +291,89 @@ function CardDetails(props) {
             </div>
             <div className="checklist">
                {
-                  openChecklist === false
-                     ? null
-                     : <>
-                        <>
-                           {
-                              isEditChecklistTitle === false
-                                 ? <div className='checklist-title'>
-                                    <span><LibraryAddCheckOutlinedIcon /></span>
-                                    <h3>{checklistTitle}</h3>
-                                    <div className="edit-delete-btn">
-                                       <EditIcon onClick={handleChecklistTitleEdit} />
-                                       <DeleteForeverIcon onClick={handleChecklistDelete} />
-                                    </div>
-                                 </div>
-                                 : <div className='edit-checklist-title'>
-                                    <span><LibraryAddCheckOutlinedIcon /></span>
-                                    <TextField
-                                       value={checklistTitle}
-                                       InputProps={{
-                                          autoFocus: true
-                                       }}
-                                       onChange={(e) => setChecklistTitle(e.target.value)}
-                                       id="outlined-basic"
-                                       variant="outlined"
-                                    />
-                                    <div className="add-close-btn">
-                                       <Button onClick={handleChecklistTitle} variant='contained' size='small'>Save</Button>
-                                       <CloseIcon onClick={handleCloseChecklistTitleButtton} />
-                                    </div>
-                                 </div>
-                           }
-                        </>
-                        <div className="checklist-add-container">
-                           <FormGroup>
-                              {
-                                 checklists.map((checklist, index) => {
-                                    console.log({ checklist });
-                                    return (
-                                       checklist.isChecked === false
-                                          ? <FormControlLabel
-                                             key={index}
-                                             control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
-                                             label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
-                                          />
-                                          : <FormControlLabel
-                                             key={index}
-                                             className='completed'
-                                             control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
-                                             label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
-                                          />
-                                    )
-                                 })
-                              }
-                           </FormGroup>
-                        </div>
+                  openChecklist !== false &&
+                  <>
+                     <>
                         {
-                           showAddChecklistButton === true
-                              ? <Button onClick={handleShowAddChecklistButton} className='add-item-btn' varient='outlined'>Add an item</Button>
-                              : <div className='checklist-title-edit'>
+                           isEditChecklistTitle === false
+                              ? <div className='checklist-title'>
+                                 <span><LibraryAddCheckOutlinedIcon /></span>
+                                 <h3 onClick={handleChecklistTitleEdit}>{checklistTitle}</h3>
+                                 <div className="edit-delete-btn">
+                                    <EditIcon onClick={handleChecklistTitleEdit} />
+                                    <DeleteForeverIcon onClick={handleChecklistDelete} />
+                                 </div>
+                              </div>
+                              : <div className='edit-checklist-title'>
+                                 <span><LibraryAddCheckOutlinedIcon /></span>
                                  <TextField
-                                    value={checklistValue}
-                                    onChange={(e) => setChecklistValue(e.target.value)}
-                                    fullWidth id="outlined-basic"
+                                    className='checklist-title-edit'
+                                    value={checklistTitle}
+                                    InputProps={{
+                                       autoFocus: true
+                                    }}
+                                    onChange={(e) => setChecklistTitle(e.target.value)}
+                                    id="outlined-basic"
                                     variant="outlined"
-                                    placeholder='Add an item'
                                  />
                                  <div className="add-close-btn">
-                                    <Button onClick={handleChecklistAddBtn} variant='contained' size='small'>Add</Button>
-                                    <CloseIcon onClick={handleCloseAddChecklistButtton} />
+                                    <Button onClick={handleChecklistTitle} variant='contained' size='small'>Save</Button>
+                                    <CloseIcon onClick={handleCloseChecklistTitleButtton} />
                                  </div>
                               </div>
                         }
                      </>
+
+                     <div className="checklist-add-container">
+                        <FormGroup>
+                           {
+                              checklists.map((checklist, index) => {
+                                 console.log({ checklist });
+                                 return (
+                                    checklist.isChecked === false
+                                       ? <FormControlLabel
+                                          className='checkllist-item-customize'
+                                          key={index}
+                                          control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
+                                          label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
+                                       />
+                                       : <FormControlLabel
+                                          key={index}
+                                          className='completed checkllist-item-customize'
+                                          control={<Checkbox key={index} checked={checklist.isChecked} onChange={(e) => handleChange(index, e)} />}
+                                          label={<>{checklist.name}<DeleteForeverIcon onClick={(e) => handleChecklistItemDelete(index, e)} /></>}
+                                       />
+                                 )
+                              })
+                           }
+                        </FormGroup>
+                     </div>
+
+                     {
+                        showAddChecklistButton === true
+                           ? <Button onClick={handleShowAddChecklistButton} className='add-item-btn' varient='outlined'>Add an item</Button>
+                           : <div className='checklist-title-edit'>
+                              <TextField
+                                 value={checklistValue}
+                                 onChange={(e) => setChecklistValue(e.target.value)}
+                                 fullWidth id="outlined-basic"
+                                 variant="outlined"
+                                 placeholder='Add an item'
+                              />
+                              <div className="common-add-close-btn">
+                                 <Button onClick={handleChecklistAddBtn} variant='contained' size='small'>Add</Button>
+                                 <CloseIcon onClick={handleCloseAddChecklistButtton} />
+                              </div>
+                           </div>
+                     }
+                  </>
                }
             </div>
          </div>
 
          <div className="dialogue-sidebar">
             <h2>Add to card</h2>
+
             <div className="sidebar-lists">
                <a href="#" onClick={handleLabelOpen}>
                   <span><SellIcon className='icon-size' /></span>

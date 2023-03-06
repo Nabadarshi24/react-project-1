@@ -6,53 +6,18 @@ import CircleIcon from '@mui/icons-material/Circle';
 import Button from '@mui/material/Button';
 import Config, { labelItems } from '../Config';
 
-function LabelDetails(props) {
+const LabelDetails = (props) => {
    const { card, onSave } = props;
    const [labels, setLabels] = useState(card.labels);
-   console.log(labels);
 
-   // const labelItems = [
-   //    {
-   //       value: 'COPY',
-   //       className: 'edit-copy',
-   //       label: 'Copy Request'
-   //    },
-   //    {
-   //       value: 'STEP',
-   //       className: 'edit-step',
-   //       label: 'One More Step'
-   //    },
-   //    {
-   //       value: 'PRIORITY',
-   //       className: 'edit-priority',
-   //       label: 'Priority'
-   //    },
-   //    {
-   //       value: 'Design Team',
-   //       className: 'edit-design',
-   //       label: 'Design Team'
-   //    },
-   //    {
-   //       value: 'Product Marketing',
-   //       className: 'edit-product',
-   //       label: 'Product Marketing'
-   //    },
-   //    {
-   //       value: 'Trello Tip',
-   //       className: 'edit-trello',
-   //       label: 'Trello Tip'
-   //    },
-   //    {
-   //       value: 'Help',
-   //       className: 'edit-help',
-   //       label: 'Help'
-   //    }
-   // ]
+   console.log(labels);
 
    const getLabelValue = (e) => {
       const { value, checked } = e.target;
       // const index = labels.indexOf(value);
+
       // console.log(value, checked)
+
       let newLabels = [];
       if (checked) {
          newLabels = [...labels, value];
@@ -63,13 +28,14 @@ function LabelDetails(props) {
 
       setLabels(newLabels);
       card.labels = newLabels;
-   }
+   };
 
    return (
       <div className='label-details'>
          <div className="label-title">
             <span>Labels</span>
          </div>
+
          <div className="label-body">
             <FormGroup className='user-form'>
                {

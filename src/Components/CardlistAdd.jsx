@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Cardlist from './Cardlist';
 
-function CardlistAdd() {
+const CardlistAdd = () => {
    const [updateAddList, setUpdateAddList] = useState(false);
    const [cardlists, setCardlists] = useState([]);
    const [inputValue, setInputValue] = useState('');
@@ -23,7 +23,7 @@ function CardlistAdd() {
 
       setCardlists(newCardlists);
       setInputValue('');
-   }
+   };
 
    const handleDeleteCardlistBtn = (index) => {
       const newCardlists = [...cardlists];
@@ -31,14 +31,15 @@ function CardlistAdd() {
       newCardlists.splice(index, 1);
       setCardlists(newCardlists);
       // cardlists = newCardlists;
-   }
+   };
+
    const handleAddListBtn = () => {
       setUpdateAddList(true);
-   }
+   };
 
    const handleClose = () => {
       setUpdateAddList(false);
-   }
+   };
 
    return (
       <div className='custom-container'>
@@ -47,6 +48,7 @@ function CardlistAdd() {
                <Cardlist handleDeleteCardlistBtn={handleDeleteCardlistBtn} cardlist={cardlist} index={index} key={index} />
             ))
          }
+
          <div className="cardlist-add-section">
             {
                updateAddList === false
@@ -63,7 +65,7 @@ function CardlistAdd() {
                         variant="outlined"
                         placeholder='Enter list title...'
                      />
-                     <div className="add-close-btn">
+                     <div className="common-add-close-btn">
                         <Button variant='contained' size='small' onClick={handleAddBtnClick}>Add list</Button>
                         <CloseIcon onClick={handleClose} />
                      </div>

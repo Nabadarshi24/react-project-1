@@ -48,7 +48,7 @@ body {
 }
 
 .add-close-btn {
-  margin-top: 5px;
+  margin: 7px 0 0 37px;
 }
 
 .add-close-btn Button {
@@ -130,6 +130,7 @@ body {
 .card-labels .card-label-item .MuiSvgIcon-root {
   font-size: 11px;
 }
+
 .card-label-item {
   margin-right: 5px;
   margin-top: 5px;
@@ -305,6 +306,11 @@ body {
   justify-content: space-between;
 }
 
+.MuiTextField-root.checklist-title-edit {
+  margin-left: 13px;
+  width: calc(100% - 40px);
+}
+
 .checklist-title h3 {
   cursor: pointer;
   font-size: 16px;
@@ -315,12 +321,29 @@ body {
   text-decoration: line-through;
 }
 
+.checkllist-item-customize.MuiFormControlLabel-root {
+  height: 33px;
+}
+
+.checkllist-item-customize .MuiTypography-root {
+  margin-left: 4px;
+}
+
 .checklist-title-edit {
-  margin-left: 36px;
+  margin: 5px 0 0 36px;
+}
+
+.common-add-close-btn {
+  margin-top: 7px;
+  text-transform: none;
+}
+
+.common-add-close-btn .MuiButtonBase-root {
+  text-transform: none;
 }
 
 .checklist-add-container {
-  margin-left: 2px;
+  margin: 3px 0 0 2px;
 }
 
 .edit-delete-btn .MuiSvgIcon-root {

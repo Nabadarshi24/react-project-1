@@ -9,7 +9,7 @@ import Card from './Card';
 import DoneIcon from '@mui/icons-material/Done';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 
-function Cardlist(props) {
+const Cardlist = (props) => {
    const { cardlist, handleDeleteCardlistBtn, index } = props;
    console.log(props);
    const [cardListTitle, setCardListTitle] = useState('');
@@ -31,7 +31,7 @@ function Cardlist(props) {
    const handleCardlistDelete = () => {
       setAnchorEl(null);
       handleDeleteCardlistBtn(index);
-   }
+   };
 
    const handleAddCardBtn = () => {
       if (inputValue === "" || inputValue === null) {
@@ -47,36 +47,40 @@ function Cardlist(props) {
          date: '',
          checklistTitle: '',
          checklists: []
-      }
+      };
       const newCards = [...cards, newCard];
+
       setCards(newCards);
       setInputValue('');
-   }
+   };
 
    const handleCardDeleteBtn = (index) => {
       const newCards = [...cards];
-
       newCards.splice(index, 1);
+
       setCards(newCards);
+
       console.log(cards);
-   }
+   };
 
    const handleTitle = () => {
       setCardListTitle(true);
-   }
+   };
 
    const handleClose = (e) => {
       setCardListTitle('');
+
       cardlist.title = editCardlistTitleSave;
-   }
+   };
 
    const handleUpdateCard = () => {
       setUpdateCard(true);
-   }
+   };
 
    const closeUpdateCard = () => {
       setUpdateCard(null);
-   }
+   };
+
    return (
       <div className="card-list">
          <div className="card-list-card">
@@ -142,7 +146,7 @@ function Cardlist(props) {
                            variant="outlined"
                            placeholder='Enter a title for this card...'
                         />
-                        <div className="add-close-btn">
+                        <div className="common-add-close-btn">
                            <Button variant='contained' size='small' onClick={handleAddCardBtn}>Add card</Button>
                            <CloseIcon onClick={closeUpdateCard} />
                         </div>

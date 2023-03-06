@@ -1,7 +1,7 @@
 import './App.css';
 import CardlistAdd from './Components/CardlistAdd';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <CardlistAdd />
