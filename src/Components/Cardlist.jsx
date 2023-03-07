@@ -108,6 +108,8 @@ const Cardlist = (props) => {
                         }}
                      >
                         <MenuItem onClick={handleMenuClose}>Add card...</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>Copy list...</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>Move list...</MenuItem>
                         <MenuItem onClick={handleCardlistDelete}>Archive this list</MenuItem>
                      </Menu>
                   </div>

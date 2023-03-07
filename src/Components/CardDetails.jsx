@@ -20,7 +20,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import Config, { labelItems } from '../Config';
 
 const CardDetails = (props) => {
-   const { card, cardlist, callBack } = props;
+   const { card, cardlist } = props;
    const [open, setOpen] = useState(false);
    const [fullWidth, setFullWidth] = useState(true);
    const [maxWidth, setMaxWidth] = useState('xs');
@@ -148,8 +148,8 @@ const CardDetails = (props) => {
 
    const handleDescriptionSave = () => {
       setDescription(null);
-      callBack(card.descriptionValue);
-      
+      // callBack(card.descriptionValue);
+
       card.descriptionValue = descriptionValue;
    };
 

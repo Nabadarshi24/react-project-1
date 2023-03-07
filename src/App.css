@@ -127,8 +127,16 @@ body {
   flex-flow: row wrap;
 }
 
+.custom-font-size {
+  font-size: 14px;
+}
+
 .card-labels .card-label-item .MuiSvgIcon-root {
   font-size: 11px;
+}
+
+.MuiButtonBase-root.customize-icon-btn {
+  padding: 0;
 }
 
 .card-label-item {
@@ -216,7 +224,7 @@ body {
 }
 
 .label-item {
-  margin-right: 3px;
+  margin: 3px 0 0 3px;
   font-size: 14px;
   cursor: pointer;
   padding: 6px 6px 7px 5px;
@@ -235,7 +243,7 @@ body {
   letter-spacing: unset;
   min-width: 30px;
   padding: 0;
-  margin-left: 3px;
+  margin: 3px 0 0 3px;
 }
 
 .date-container-btn {

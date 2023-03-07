@@ -45,7 +45,12 @@ const CardlistAdd = () => {
       <div className='custom-container'>
          {
             cardlists.map((cardlist, index) => (
-               <Cardlist handleDeleteCardlistBtn={handleDeleteCardlistBtn} cardlist={cardlist} index={index} key={index} />
+               <Cardlist
+                  handleDeleteCardlistBtn={handleDeleteCardlistBtn}
+                  cardlist={cardlist}
+                  index={index}
+                  key={index}
+               />
             ))
          }
 

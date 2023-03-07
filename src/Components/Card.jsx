@@ -11,17 +11,18 @@ import Button from '@mui/material/Button';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import CircleIcon from '@mui/icons-material/Circle';
 import Config, { labelItems } from '../Config';
+import TooltipText from './TooltipText';
 
 const Card = (props) => {
    const { card, cardlist, handleCardDeleteBtn, index } = props;
    const [open, setOpen] = useState(false);
    const [fullWidth, setFullWidth] = useState(true);
    const [maxWidth, setMaxWidth] = useState('md');
-   const [descriptionValue, setDescriptionValue] = useState('');
+   // const [descriptionValue, setDescriptionValue] = useState('');
 
-   const callBack = (descriptionValue) => {
-      setDescriptionValue(descriptionValue);
-   };
+   // const callBack = (descriptionValue) => {
+   //    setDescriptionValue(descriptionValue);
+   // };
 
    const handleClickOpen = () => {
       setOpen(true);
@@ -62,16 +63,30 @@ const Card = (props) => {
                </div>
                <div className="description">
                   {
-                     descriptionValue !== '' &&
-                     <SubjectIcon className='font-size' />
+                     // descriptionValue !== '' &&
+                     card.descriptionValue &&
+                     // <SubjectIcon className='font-size' />
+                     <TooltipText
+                        TooltipTitle={card.descriptionValue}
+                        TooltipIcon={<SubjectIcon className='font-size' />}
+                     />
                   }
                </div>
                <div className="checklist-items">
                   {
                      card.checklistTitle !== '' &&
                      <>
-                        <span><LibraryAddCheckOutlinedIcon className='font-size' /></span>
-                        <span>{card.checklists.filter(x => x.isChecked).length}/{card.checklists.length}</span>
+                        {/* <span><LibraryAddCheckOutlinedIcon className='font-size' /></span>
+                        <span>{card.checklists.filter(x => x.isChecked).length}/{card.checklists.length}</span> */}
+                        <TooltipText
+                           TooltipTitle='Checklist items'
+                           TooltipIcon={
+                              <span>
+                                 <span className='custom-font-size'><LibraryAddCheckOutlinedIcon className='font-size' /></span>
+                                 <span className='custom-font-size'>{card.checklists.filter(x => x.isChecked).length}/{card.checklists.length}</span>
+                              </span>
+                           }
+                        />
                      </>
                   }
                </div>
@@ -88,7 +103,11 @@ const Card = (props) => {
                <Button onClick={handleClose}>Close</Button>
             </DialogActions>
             <DialogContent>
-               <CardDetails callBack={callBack} card={card} cardlist={cardlist} />
+               <CardDetails
+                  // callBack={callBack}
+                  card={card}
+                  cardlist={cardlist}
+               />
             </DialogContent>
          </Dialog>
       </Fragment>
