@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #cb459c;
+  background-color: #5029a8;
   overflow-x: auto;
 }
 
@@ -75,12 +75,27 @@ body {
   width: 85%;
 }
 
+.MuiButton-root.move-btn {
+  margin-top: 10px;
+  text-transform: none;
+}
+
 .MuiSvgIcon-root {
   cursor: pointer;
 }
 
 .MuiSvgIcon-root.menu-icon {
   font-size: 21px;
+}
+
+.MuiSvgIcon-root.modal-close-btn {
+  font-size: 18px;
+  position: absolute;
+  right: 10px;
+}
+
+.css-13r4j3i .MuiTextField-root {
+  width: 100%;
 }
 
 .MuiSvgIcon-root.common-font-size {

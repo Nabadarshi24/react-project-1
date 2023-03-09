@@ -8,17 +8,31 @@ import CloseIcon from '@mui/icons-material/Close';
 import Card from './Card';
 import DoneIcon from '@mui/icons-material/Done';
 import { IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, Modal, Typography } from '@mui/material';
+
+const style = {
+   position: 'absolute',
+   top: '6%',
+   left: '15%',
+   transform: 'translate(-6%, -15%)',
+   width: 330,
+   bgcolor: 'background.paper',
+   border: '2px solid #000',
+   boxShadow: 24,
+   p: 1,
+};
 
 const Cardlist = (props) => {
-   const { cardlist, handleDeleteCardlistBtn, index } = props;
-   console.log(props);
+   const { cardlists, cardlist, handleDeleteCardlistBtn, index, handleCopyBtnClick, handleMovelistBtn } = props;
    const [cardListTitle, setCardListTitle] = useState('');
    const [editCardlistTitleSave, setEditCardlistTitleSave] = useState(cardlist.title);
    const [updateCard, setUpdateCard] = useState(null);
-   const [cards, setCards] = useState([]);
+   // const [cardlist.cards, setCards] = useState(cardlist.cards ?? []);
    const [inputValue, setInputValue] = useState('');
    const [anchorEl, setAnchorEl] = useState(null);
    const open = Boolean(anchorEl);
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [currentValue, setCurrentValue] = useState(index);
 
    const handleMenuClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -28,10 +42,25 @@ const Cardlist = (props) => {
       setAnchorEl(null);
    };
 
+   const handleModalOpen = () => {
+      setIsModalOpen(true);
+      handleMenuClose();
+   };
+
+   const handleModalClose = () => {
+      handleMovelistBtn(cardlists, index, currentValue);
+      setIsModalOpen(false);
+   };
+
    const handleCardlistDelete = () => {
       setAnchorEl(null);
       handleDeleteCardlistBtn(index);
    };
+
+   const handleCopyCardBtnClick = () => {
+      setAnchorEl(null);
+      handleCopyBtnClick(index);
+   }
 
    const handleAddCardBtn = () => {
       if (inputValue === "" || inputValue === null) {
@@ -48,19 +77,21 @@ const Cardlist = (props) => {
          checklistTitle: '',
          checklists: []
       };
-      const newCards = [...cards, newCard];
+      const newCards = [...cardlist.cards, newCard];
+      cardlist.cards = newCards;
 
-      setCards(newCards);
+      // setCards(newCards);
       setInputValue('');
    };
 
    const handleCardDeleteBtn = (index) => {
-      const newCards = [...cards];
+      const newCards = [...cardlist.cards];
       newCards.splice(index, 1);
 
-      setCards(newCards);
+      cardlist.cards = newCards;
+      // setCards(newCards);
 
-      console.log(cards);
+      console.log(cardlist.cards);
    };
 
    const handleTitle = () => {
@@ -74,12 +105,20 @@ const Cardlist = (props) => {
    };
 
    const handleUpdateCard = () => {
+      setAnchorEl(null);
       setUpdateCard(true);
    };
 
    const closeUpdateCard = () => {
       setUpdateCard(null);
    };
+
+   // const handleMovelistBtn = (arr, from, to) => {
+   //    newArr = [...arr];
+   //    newArr.splice(to, 0, newArr.splice(from, 0)[0]);
+
+   //    setCardlists(newArr);
+   // }
 
    return (
       <div className="card-list">
@@ -107,11 +146,61 @@ const Cardlist = (props) => {
                            'aria-labelledby': 'basic-button',
                         }}
                      >
-                        <MenuItem onClick={handleMenuClose}>Add card...</MenuItem>
-                        <MenuItem onClick={handleMenuClose}>Copy list...</MenuItem>
-                        <MenuItem onClick={handleMenuClose}>Move list...</MenuItem>
+                        <MenuItem onClick={handleUpdateCard}>Add card...</MenuItem>
+                        <MenuItem onClick={handleCopyCardBtnClick}>Copy list...</MenuItem>
+                        <MenuItem onClick={handleModalOpen}>Move list...</MenuItem>
                         <MenuItem onClick={handleCardlistDelete}>Archive this list</MenuItem>
                      </Menu>
+
+                     <Modal
+                        keepMounted
+                        open={isModalOpen}
+                        onClose={handleModalClose}
+                        aria-labelledby="keep-mounted-modal-title"
+                        aria-describedby="keep-mounted-modal-description"
+                     >
+                        <Box sx={style}>
+                           <div id="keep-mounted-modal-title" variant="span" component="h6">
+                              Move list
+                              <CloseIcon className='modal-close-btn' />
+                           </div>
+                           <div
+                              // component="form"
+                              sx={{
+                                 '& .MuiTextField-root': { m: 1, width: '25ch' },
+                              }}
+                           // noValidate
+                           // autoComplete="off"
+                           >
+                              <div>
+                                 <TextField
+                                    id="filled-select-currency"
+                                    select
+                                    label="Position"
+                                    value={currentValue}
+                                    onChange={(e) => setCurrentValue(e.target.value)}
+                                    // defaultValue={index}
+                                    variant="filled"
+                                    fullWidth
+                                 >
+                                    {cardlists.map((cardlist, index) => (
+                                       <MenuItem key={index} value={index}>
+                                          <span>{index}</span>
+                                       </MenuItem>
+                                    ))}
+                                 </TextField>
+                              </div>
+                              <Button
+                                 className='move-btn'
+                                 variant='contained'
+                                 size='small'
+                                 onClick={handleModalClose}
+                              >
+                                 Move
+                              </Button>
+                           </div>
+                        </Box>
+                     </Modal>
                   </div>
                   : <div className="editable-card-title clearfix">
                      <TextField
@@ -129,7 +218,7 @@ const Cardlist = (props) => {
             }
 
             {
-               cards.map((card, index) => (
+               cardlist.cards.map((card, index) => (
                   <Card card={card} handleCardDeleteBtn={handleCardDeleteBtn} cardlist={cardlist} index={index} key={index} />
                ))
             }

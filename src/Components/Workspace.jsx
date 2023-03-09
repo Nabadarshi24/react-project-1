@@ -16,13 +16,27 @@ const CardlistAdd = () => {
       }
 
       const newCardlist = {
-         title: inputValue
+         title: inputValue,
+         cards: []
       }
 
       const newCardlists = [...cardlists, newCardlist];
 
       setCardlists(newCardlists);
       setInputValue('');
+   };
+
+   const handleCopyBtnClick = (copyIndex) => {
+      const newCardlist = structuredClone(cardlists[copyIndex]);
+      const newCardlists = [...cardlists];
+      newCardlists.splice((copyIndex + 1), 0, newCardlist);
+      setCardlists(newCardlists);
+   };
+   const handleMovelistBtn = (arr, from, to) => {
+      let newArr = [...arr];
+      newArr.splice(to, 0, newArr.splice(from, 1)[0]);
+
+      setCardlists(newArr);
    };
 
    const handleDeleteCardlistBtn = (index) => {
@@ -42,14 +56,18 @@ const CardlistAdd = () => {
    };
 
    return (
+      console.log({ cardlists }) ||
       <div className='custom-container'>
          {
             cardlists.map((cardlist, index) => (
                <Cardlist
                   handleDeleteCardlistBtn={handleDeleteCardlistBtn}
                   cardlist={cardlist}
+                  cardlists={cardlists}
+                  handleCopyBtnClick={handleCopyBtnClick}
                   index={index}
                   key={index}
+                  handleMovelistBtn={handleMovelistBtn}
                />
             ))
          }

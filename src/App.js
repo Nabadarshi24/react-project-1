@@ -1,10 +1,10 @@
 import './App.css';
-import CardlistAdd from './Components/CardlistAdd';
+import Workspace from './Components/Workspace';
 
 const App = () => {
   return (
     <div className="App">
-      <CardlistAdd />
+      <Workspace />
     </div>
   );
 }
